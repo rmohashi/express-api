@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd nodemon -r tsconfig-paths/register ./src/index.ts",
-    "build": "env-cmd webpack --config webpack.config.ts"
+    "start": "env-cmd -f .env.development nodemon -r tsconfig-paths/register ./src/index.ts",
+    "build": "env-cmd -f .env.production webpack --config webpack.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -44,5 +44,8 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2"
+  },
+  "engines": {
+    "node": "12.16.1"
   }
 }
