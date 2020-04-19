@@ -1,6 +1,6 @@
-import Container, { Service, Inject } from 'typedi';
+import { Service, Inject } from 'typedi';
 
-import UserRepositoryAdapter, { UserRepositoryType } from '@domain/user-repository-adapter';
+import UserRepositoryType, { UserRepositoryAdapter } from '@domain/user-repository-adapter';
 
 @Service()
 export default class CreateUserUseCase {

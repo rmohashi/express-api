@@ -1,11 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import 'reflect-metadata';
 import { useExpressServer, useContainer } from 'routing-controllers';
 import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
 import { Container } from 'typedi';
 
-import { User } from '@infra/entities/user';
+import User from '@infra/entities/user';
 import UserController from '@web/controllers/user-controller';
 
 class App {
@@ -22,7 +21,7 @@ class App {
   start() {
     const PORT = process.env.PORT || 4000;
 
-    this.app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`))
+    this.app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
   }
 
   private configBodyParser() {
@@ -34,12 +33,12 @@ class App {
     useContainer(Container);
 
     useExpressServer(this.app, {
-      controllers: [UserController]
+      controllers: [UserController],
     });
   }
 
   private async configDatabase() {
-    try{
+    try {
       typeormUseContainer(Container);
       await createConnection({
         type: 'postgres',
@@ -50,13 +49,12 @@ class App {
           User,
         ],
         host: process.env.DB_ENDPOINT,
-        port: parseInt(process.env.DB_PORT as string),
+        port: parseInt(process.env.DB_PORT as string, 10),
         username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD
+        password: process.env.DB_PASSWORD,
       });
       console.log('Connected to the database!');
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       process.exit(1);
     }
