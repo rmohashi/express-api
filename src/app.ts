@@ -6,6 +6,7 @@ import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
 import { Container } from 'typedi';
 
 import { User } from '@infra/entities/user';
+import UserController from '@web/controllers/user-controller';
 
 class App {
   app: express.Application;
@@ -33,7 +34,7 @@ class App {
     useContainer(Container);
 
     useExpressServer(this.app, {
-      controllers: [__dirname + '/web/controllers/*.ts']
+      controllers: [UserController]
     });
   }
 
@@ -44,7 +45,7 @@ class App {
         type: 'postgres',
         database: process.env.DB_DATABASE,
         synchronize: true,
-        logging: true,
+        logging: process.env.ENVIRONMENT === 'development',
         entities: [
           User,
         ],
