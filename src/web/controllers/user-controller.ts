@@ -1,4 +1,6 @@
-import { JsonController, Get, Post, BodyParam } from 'routing-controllers';
+import {
+  JsonController, Get, Post, BodyParam,
+} from 'routing-controllers';
 
 import FindAllUsersUseCase from '@use-cases/find-all-users.use-case';
 import CreateUserUseCase from '@use-cases/create-user.use-case';
@@ -17,10 +19,10 @@ export default class UserController {
 
   @Post('/user')
   create(
-    @BodyParam("name")
-    name: string,
-    @BodyParam("email")
-    email: string,
+    @BodyParam('name')
+      name: string,
+    @BodyParam('email')
+      email: string,
   ) {
     return this.createUserUseCase.execute(name, email);
   }
