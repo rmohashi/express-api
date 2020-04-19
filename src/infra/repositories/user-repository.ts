@@ -2,15 +2,15 @@ import { Service } from 'typedi';
 import { Repository } from 'typeorm';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 
-import { User } from '@infra/entities/user';
-import UserRepositoryAdapter, { UserRepositoryType } from '@domain/user-repository-adapter';
+import User from '@infra/entities/user';
+import UserRepositoryType, { UserRepositoryAdapter } from '@domain/user-repository-adapter';
 
 @Service(UserRepositoryType)
 export default class UserRepository implements UserRepositoryAdapter {
   constructor(
     @InjectRepository(User)
-    private repository: Repository<User>
-) {}
+    private repository: Repository<User>,
+  ) {}
 
   findAll() {
     return this.repository.find();
@@ -21,6 +21,6 @@ export default class UserRepository implements UserRepositoryAdapter {
   }
 
   create(name: string, email: string) {
-    return this.repository.save({ name, email })
+    return this.repository.save({ name, email });
   }
 }
