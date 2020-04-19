@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "env-cmd -f .env.development nodemon -r tsconfig-paths/register ./src/index.ts",
-    "build": "env-cmd -f .env.production webpack --config webpack.config.ts"
+    "start:production": "env-cmd -f .env.production node dist/index.js",
+    "start:dist": "env-cmd -f .env.development node dist/index.js",
+    "build": "env-cmd -f .env.production webpack --config webpack.config.js",
+    "build:development": "env-cmd -f .env.development webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",

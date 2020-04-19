@@ -5,6 +5,8 @@ import { useExpressServer, useContainer } from 'routing-controllers';
 import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
 import { Container } from 'typedi';
 
+import { User } from '@infra/entities/user';
+
 class App {
   app: express.Application;
 
@@ -44,7 +46,7 @@ class App {
         synchronize: true,
         logging: true,
         entities: [
-          `${__dirname}/infra/entities/*.ts`
+          User,
         ],
         host: process.env.DB_ENDPOINT,
         port: parseInt(process.env.DB_PORT as string),
