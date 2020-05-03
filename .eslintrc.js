@@ -23,6 +23,10 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/extensions': 'off',
     'no-useless-constructor': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'import/no-dynamic-require': 'off',
+    'global-require': 'off',
   },
   settings: {
     'import/resolver': {
