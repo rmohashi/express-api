@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "env-cmd -f .env.development nodemon -r tsconfig-paths/register ./src/index.ts",
-    "start:production": "env-cmd -f .env.production node -r tsconfig-paths/register dist/index.js",
+    "start:production": "env-cmd -f .env.production node -r module-alias/register dist/index.js",
     "start:dist": "env-cmd -f .env.development node -r module-alias/register dist/index.js",
     "build": "tsc",
     "lint": "tsc --noEmit && eslint --fix 'src/**/*.ts'"
