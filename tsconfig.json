@@ -15,7 +15,8 @@
       "@web/*": ["web/*"],
       "@infra/*": ["infra/*"],
       "@use-cases/*": ["use-cases/*"],
-      "@domain/*": ["domain/*"]
+      "@domain/*": ["domain/*"],
+      "@utils/*": ["utils/*"]
     },
     "rootDirs": ["src"],                      /* List of root folders whose combined content represents the structure of the project at runtime. */
     "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
@@ -26,5 +27,7 @@
 
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }
