@@ -33,7 +33,7 @@ class App {
 
     useExpressServer(this.app, {
       controllers: [
-        `${__dirname}/web/controllers/*.ts`],
+        `${__dirname}/web/controllers/*.{ts,js}`],
     });
   }
 
@@ -46,7 +46,7 @@ class App {
         synchronize: true,
         logging: process.env.ENVIRONMENT === 'development',
         entities: [
-          `${__dirname}/infra/entities/*.ts`,
+          `${__dirname}/infra/entities/*.{ts,js}`,
         ],
         host: process.env.DB_ENDPOINT,
         port: parseInt(process.env.DB_PORT as string, 10),
@@ -61,7 +61,7 @@ class App {
   }
 
   private async configInversionOfControl() {
-    loadFromDirectories([`${__dirname}/infra/repositories/*.ts`]);
+    loadFromDirectories([`${__dirname}/infra/repositories/*.{ts,js}`]);
   }
 }
 
