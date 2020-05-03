@@ -14,9 +14,8 @@ export const loadFromDirectories = (directories: string[], formats = ['.ts', '.j
     return allLoaded;
   };
 
-  const allFiles = directories.reduce((allDirs, dir) => {
-    return allDirs.concat(glob.sync(path.normalize(dir)));
-  }, [] as string[]);
+  const allFiles = directories
+    .reduce((allDirs, dir) => allDirs.concat(glob.sync(path.normalize(dir))), [] as string[]);
 
 
   const dirs = allFiles
@@ -24,9 +23,7 @@ export const loadFromDirectories = (directories: string[], formats = ['.ts', '.j
       const dtsExtension = file.substring(file.length - 5, file.length);
       return formats.indexOf(path.extname(file)) !== -1 && dtsExtension !== '.d.ts';
     })
-    .map((file) => {
-      return require(file);
-    });
+    .map((file) => require(file));
 
   return loadFileClasses(dirs, []);
-}
+};
