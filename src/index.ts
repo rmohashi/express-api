@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import app from './app';
+import App from './app';
 
-app.configure()
-  .then(() => app.start());
+const app = new App();
+app.configure().then(() => app.start());

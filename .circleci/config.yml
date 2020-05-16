@@ -1,0 +1,73 @@
+version: 2.1
+
+restore_npm_cache: &restore_npm_cache
+  restore_cache:
+    keys:
+      - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - node-v1-{{ .Branch }}-
+      - node-v1-
+
+install_dependencies: &install_dependencies
+  run:
+    name: Install dependencies
+    command: npm install
+
+save_npm_cache: &save_npm_cache
+  save_cache:
+    paths:
+      - ~/usr/local/lib/node_modules  # location depends on npm version
+    key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - checkout
+      - *restore_npm_cache
+      - *install_dependencies
+      - *save_npm_cache
+      - run:
+          name: Build project
+          command: npm build
+
+  test:
+    docker:
+      - image: circleci/node:12.16.1
+      - image: circleci/postgres:9.6.2-alpine
+    steps:
+      - checkout
+      - *restore_npm_cache
+      - *install_dependencies
+      - *save_npm_cache
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Run tests
+          command: npm run test:ci
+
+  lint:
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - checkout
+      - *restore_npm_cache
+      - *install_dependencies
+      - *save_npm_cache
+      - run:
+          name: Run linter
+          command: npm run lint
+
+
+workflows:
+    build-and-test:
+      jobs:
+        - build
+        - lint
+        - test

@@ -1,13 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { useExpressServer, useContainer } from 'routing-controllers';
-import { createConnection, useContainer as typeormUseContainer } from 'typeorm';
+import { createConnection, useContainer as typeormUseContainer, Connection } from 'typeorm';
 import { Container } from 'typedi';
 
 import { loadFromDirectories } from '@utils/load-from-directories';
+import { log } from '@utils/log';
 
 class App {
-  app: express.Application;
+  public app: express.Application;
+
+  public dbConnection: Connection;
 
   async configure() {
     this.app = express();
@@ -20,7 +23,7 @@ class App {
   start() {
     const PORT = process.env.PORT || 4000;
 
-    this.app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
+    this.app.listen(PORT, () => log('info', `Server listening on port ${PORT}!`));
   }
 
   private configBodyParser() {
@@ -40,7 +43,7 @@ class App {
   private async configDatabase() {
     try {
       typeormUseContainer(Container);
-      await createConnection({
+      this.dbConnection = await createConnection({
         type: 'postgres',
         database: process.env.DB_DATABASE,
         synchronize: true,
@@ -53,9 +56,9 @@ class App {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
       });
-      console.log('Connected to the database!');
+      log('info', 'Connected to the database!');
     } catch (error) {
-      console.error(error);
+      log('error', error);
       process.exit(1);
     }
   }
@@ -65,4 +68,4 @@ class App {
   }
 }
 
-export default new App();
+export default App;

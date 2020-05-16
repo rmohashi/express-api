@@ -2,22 +2,22 @@ import {
   JsonController, Get, Post, BodyParam,
 } from 'routing-controllers';
 
-import FindAllUsersUseCase from '@use-cases/find-all-users.use-case';
-import CreateUserUseCase from '@use-cases/create-user.use-case';
+import FindAllUsersUseCase from '@use-cases/find-all-users-use-case';
+import CreateUserUseCase from '@use-cases/create-user-use-case';
 
-@JsonController()
+@JsonController('/user')
 export default class UserController {
   constructor(
     private findAllUsersUseCase: FindAllUsersUseCase,
     private createUserUseCase: CreateUserUseCase,
   ) {}
 
-  @Get('/users')
+  @Get()
   getAll() {
     return this.findAllUsersUseCase.execute();
   }
 
-  @Post('/user')
+  @Post()
   create(
     @BodyParam('name')
       name: string,
