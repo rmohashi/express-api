@@ -1,4 +1,4 @@
-import UserController from '../../../src/web/controllers/user-controller';
+import UserController from '../user-controller';
 
 describe('Controllers: UserController', () => {
   describe('#getAll', () => {

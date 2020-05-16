@@ -1,4 +1,4 @@
-import CreateUserUseCase from '../../src/use-cases/create-user.use-case';
+import CreateUserUseCase from '../create-user-use-case';
 
 describe('Use Case: CreateUserUseCase', () => {
   it('creates a user using the repository', async () => {

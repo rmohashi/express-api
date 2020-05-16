@@ -1,4 +1,4 @@
-import FindAllUsersUseCase from '../../src/use-cases/find-all-users.use-case';
+import FindAllUsersUseCase from '../find-all-users-use-case';
 
 describe('Use Case: FindAllUsersUseCase', () => {
   it('returns all users from repository', async () => {
