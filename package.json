@@ -9,7 +9,8 @@
     "start:dist": "env-cmd -f .env.development node -r module-alias/register dist/index.js",
     "build": "tsc",
     "lint": "tsc --noEmit && eslint --fix 'src/**/*.ts'",
-    "test": "env-cmd -f .env.test jest"
+    "test": "env-cmd -f .env.test jest",
+    "test:ci": "env-cmd -f .env.test.ci jest"
   },
   "keywords": [],
   "author": "",
