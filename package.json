@@ -10,7 +10,8 @@
     "build": "tsc",
     "lint": "tsc --noEmit && eslint --fix 'src/**/*.ts'",
     "test": "env-cmd -f .env.test jest",
-    "test:ci": "env-cmd -f .env.test.ci jest"
+    "test:ci": "env-cmd -f .env.test.ci jest",
+    "test:coverage": "env-cmd -f .env.test jest --coverage"
   },
   "keywords": [],
   "author": "",
